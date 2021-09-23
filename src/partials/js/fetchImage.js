@@ -1,8 +1,10 @@
 // import galerryCard from '../../templates/image-card.hbs';
-// import form from '../../templates/form-search.hbs';
+// import form from '../templates/form-search.hbs';
+console.log(form);
 
 import getRefs from './get-refs.js';
 const refs = getRefs();
+console.log(refs.btnLoadMore);
 // https://pixabay.com/api/
 // ?image_type = photo
 //     &orientation=horizontal
@@ -27,10 +29,18 @@ let page = 1;
 let perPage = 12;
 
 // let params = `?image_type${type}&orientation=${orientation}&q=${value}&page=${page}&per_page=${perPage}&key=${API_KEY}`;
-let params = `?key=${API_KEY}&q=${value}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
-let url = BASE_URL + params;
 
-fetch(url).then((response) => { return response.json() }).then((data) => {
-    console.log(data);
-});
 
+// refs.formContainer.insertAdjacentHTML('beforebegin', form);
+
+refs.btnLoadMore.addEventListener('click', getFetch);
+
+function getFetch (e) {
+    console.log(e);
+    page += 1;
+    let params = `?key=${API_KEY}&q=${value}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
+    let url = BASE_URL + params;
+    fetch(url).then((response) => { return response.json() }).then((data) => {
+        console.log(data);
+    });
+};
