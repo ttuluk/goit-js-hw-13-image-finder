@@ -6,6 +6,7 @@ import getRefs from './get-refs.js';
 const refs = getRefs();
 console.log(refs.btnLoadMore);
 console.dir(refs.formContainer);
+console.log(refs.cardContainer);
 // https://pixabay.com/api/
 // ?image_type = photo
 //     &orientation=horizontal
@@ -42,7 +43,7 @@ function getFetch () {
     let params = `?key=${API_KEY}&q=${value}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
     let url = BASE_URL + params;
     fetch(url).then((response) => { return response.json() }).then((data) => {
-      console.log(data);;
+    return data
     }).then((d) => console.log(d));
 };
 
@@ -52,17 +53,18 @@ function getValue(e) {
 
     // const inputName = e.target.input.value;
     // console.log(inputName);
-page += 1;
+    page += 1;
     let params = `?key=${API_KEY}&q=${nameV}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
     let url = BASE_URL + params;
     console.log(url);
-    console.log();
     fetch(url).then((response) => { return response.json() }).then((data) => {
         return data.hits;
     }).then((ar) => {
         ar.map((elem) => {
             console.log(elem);
-            return refs.cardContainer.innerHTML = galerryCard;
+  console.log(galerryCard());
+        return  refs.cardContainer.innerHTML = galerryCard();
+          
 //             webformatURL - ссылка на маленькое изображение для списка карточек
 // largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
 // likes - количество лайков
