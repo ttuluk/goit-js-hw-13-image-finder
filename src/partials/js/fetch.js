@@ -54,7 +54,7 @@ export default class fetchObject {
                         return callback(elem);
                     })
                     return cardRef.innerHTML = result;
-                }).catch((err) => console.log('error').finally((e) => {e[0].scrollIntoView({
+                }).catch((err) => console.log('error').finally((e) => {e.scrollIntoView({
   behavior: 'smooth',
   block: 'end',
 });}))
