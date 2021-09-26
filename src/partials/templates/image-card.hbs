@@ -1,32 +1,21 @@
-{{!-- {{#each hits}} --}}
 <div class="photo-card">
-    <div class="card-img-top">
-        <img src="{{webformatURL}}" alt="">
-    </div>
-    {{!-- <img src = "{{webformatURL}}" alt="{{tags}}"> --}}
-{{!-- webformatURL - ссылка на маленькое изображение для списка карточек
-largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
-likes - количество лайков
-views - количество просмотров
-comments - количество комментариев
-downloads - количество загрузок --}}
+        <img src="{{webformatURL}}" alt="{{tags}}">
     <div class="stats">
         <p class="stats-item">
-            <i class="material-icons">thumb_up{{likes}}</i>
-            1108
+            <i class="material-icons">thumb_up</i>
+             {{likes}}
         </p>
         <p class="stats-item">
-            <i class="material-icons">visibility{{views}}</i>
-            320321
+            <i class="material-icons">visibility</i>
+             {{views}}
         </p>
         <p class="stats-item">
-            <i class="material-icons">comment{{comments}}</i>
-            129
+            <i class="material-icons">comment</i>
+             {{comments}}
         </p>
         <p class="stats-item">
-            <i class="material-icons">cloud_download{{downloads}}</i>
-            176019
+            <i class="material-icons">cloud_download</i>
+         {{downloads}}
         </p>
     </div>
 </div>
-{{!-- {{/each}} --}}

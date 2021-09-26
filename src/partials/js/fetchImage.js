@@ -1,3 +1,10 @@
+//             webformatURL - ссылка на маленькое изображение для списка карточек
+// largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
+// likes - количество лайков
+// views - количество просмотров
+// comments - количество комментариев
+// downloads - количество загрузок
+
 import galerryCard from '../templates/image-card.hbs';
 // import form from '../templates/form-search.hbs';
 console.log(form);
@@ -30,29 +37,28 @@ let type = 'photo';
 let orientation = 'horizontal';
 let page = 1;
 let perPage = 12;
-
-// let params = `?image_type${type}&orientation=${orientation}&q=${value}&page=${page}&per_page=${perPage}&key=${API_KEY}`;
-
-
-// refs.formContainer.insertAdjacentHTML('beforebegin', form);
 refs.formContainer.addEventListener('submit', getValue);
 refs.btnLoadMore.addEventListener('click', getFetch);
 
-function getFetch () {
+function getFetch() {
     page += 1;
     let params = `?key=${API_KEY}&q=${value}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
     let url = BASE_URL + params;
     fetch(url).then((response) => { return response.json() }).then((data) => {
-    return data
-    }).then((d) => console.log(d));
-};
+        return data.hits
+    }).then((ar) => {
+        const result = ar.map((elem) => {
+            console.log(elem);
+            console.log(galerryCard());
+            return refs.cardContainer.innerHTML = galerryCard(elem)
+        })
+        return refs.cardContainer.innerHTML = result;
+    })
+}
 
 function getValue(e) {
     console.log(e);
     e.preventDefault();
-
-    // const inputName = e.target.input.value;
-    // console.log(inputName);
     page += 1;
     let params = `?key=${API_KEY}&q=${nameV}&image_type=${type}&orientation=${orientation}&page=${page}&per_page=${perPage}`;
     let url = BASE_URL + params;
@@ -60,17 +66,11 @@ function getValue(e) {
     fetch(url).then((response) => { return response.json() }).then((data) => {
         return data.hits;
     }).then((ar) => {
-        ar.map((elem) => {
+       const result = ar.map((elem) => {
             console.log(elem);
-  console.log(galerryCard());
-        return  refs.cardContainer.innerHTML = galerryCard();
-          
-//             webformatURL - ссылка на маленькое изображение для списка карточек
-// largeImageURL - ссылка на большое изображение (смотри пункт 'дополнительно')
-// likes - количество лайков
-// views - количество просмотров
-// comments - количество комментариев
-// downloads - количество загрузок
-        })}
-        );
+            console.log(galerryCard());
+            return   galerryCard(elem);
+       })
+        return refs.cardContainer.innerHTML = result;
+    })
 }
