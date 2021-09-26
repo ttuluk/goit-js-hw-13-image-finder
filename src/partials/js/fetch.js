@@ -1,7 +1,7 @@
 export default class fetchObject {
     constructor(BASE_URL, ednPoint) {
-        this.BASE_URL = BASE_URL
-        this.ednPoint = ednPoint
+        this.BASE_URL = BASE_URL;
+        this.ednPoint = ednPoint;
         // this.options = options
         this._query = "";
         this._page = 1;
@@ -9,23 +9,24 @@ export default class fetchObject {
         this.type = 'photo';
         this.orientation = 'horizontal';
         
-    }
+    };
   get query() {
     return this._query
-  }
+    };
   set query(value) {
     return (this._query = value)
-  }
+    };
 
-  get page() {
+    get page() {
+      console.log(this._page);
     return this._page
-  }
-  set page(value) {
-    return (this._page += value)
-        }
-        
-        getFetchBySubmit(form, card, callback) {
-            form.addEventListener('submit', ((e) => {
+    };
+    set page(value) {
+      return this._page = value;
+    };
+    
+        getFetchBySubmit(formRef, cardRef, callback) {
+            formRef.addEventListener('submit', ((e) => {
                 e.preventDefault();
                 this._query = e.target.elements.query.value;
                 let params = `&q=${this._query}&image_type=${this.type}&orientation=${this.orientation}&per_page=${this.perPage}&page=${this._page}`;
@@ -37,25 +38,27 @@ export default class fetchObject {
                     const result = ar.map((elem) => {
                         return callback(elem);
                     })
-                    return card.innerHTML = result;
-                })
+                    return cardRef.innerHTML = result;
+                }).catch((err) => console.log('error')).finally(() => formRef.reset)
             }))
         }
 
-        getFetchByClick() {
-            refs.btnLoadMore.addEventListener('click', ((e) => {
-                page += 1;
-                console.log(page);
-                let params = `&q=${this.value}&image_type=${type}&orientation=${orientation}&per_page=${this.perPage}&page=${this.page}`;
-                let url = BASE_URL + endPoint + params;
+        getFetchByClick(btnRef, cardRef, callback) {
+            btnRef.addEventListener('click', (() => {
+                this._page += 1;
+                let params = `&q=${this._query}&image_type=${this.type}&orientation=${this.orientation}&page=${this._page}`;
+                let url = this.BASE_URL + this.ednPoint + params;
                 fetch(url).then((response) => { return response.json() }).then((data) => {
-                    return data.hits
+                    return data.hits;
                 }).then((ar) => {
                     const result = ar.map((elem) => {
-                        return refs.cardContainer.innerHTML = galerryCard(elem)
+                        return callback(elem);
                     })
-                    return refs.cardContainer.innerHTML = result;
-                })
+                    return cardRef.innerHTML = result;
+                }).catch((err) => console.log('error').finally((e) => {e.scrollIntoView({
+  behavior: 'smooth',
+  block: 'end',
+});}))
             }
             ))
         }

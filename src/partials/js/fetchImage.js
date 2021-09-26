@@ -32,9 +32,10 @@ const options = {
 };
 const card = refs.cardContainer;
 const form = refs.formContainer;
+const btn = refs.btnLoadMore;
 
 
 const myFetch = new FetchObject(BASE_URL, endPoint);
 console.log(myFetch);
 myFetch.getFetchBySubmit(form, card, galerryCard);
-
+myFetch. getFetchByClick(btn, card, galerryCard);
