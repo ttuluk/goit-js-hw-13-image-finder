@@ -1,2 +1,2 @@
 import './sass/main.scss';
-import './partials/js/fetchImage.js';
+import './partials/js/apiFetch.js';
